@@ -8,6 +8,7 @@ classdef schfigure < handle & matlab.mixin.SetGet
 		renderer
 		units
 		working_dir
+		resolution
 	end
 
 	properties (SetAccess=private)
@@ -36,18 +37,21 @@ classdef schfigure < handle & matlab.mixin.SetGet
 			obj.fig=FIG;
 			obj.use_defaults;
 
-			if exist('~/schfigrectory','file')
-				fprintf('Loading schfigurectory...')
+			if exist('~/.schfigrectory','file')
+				fprintf('Loading schfigurectory...\n')
 				fid=fopen('~/.schfigrectory');
-				obj.working_dir=fread(fid,'%s');
+				obj.working_dir=fscanf(fid,'%s');
 				fclose(fid);
 			end
 
 			% embed our object in the fig handle, MIND BLOWN, reconstitute when we load a matlab Figure
 
+			obj.fig.UserData=obj;
+			obj.fig.Visible='on';
+
 		end
 
-		function obj = set.title(obj,val)
+		function obj = set.name(obj,val)
 			if isa(val,'char')
 				obj.name=val;
 			elseif isnumeric(val)
@@ -75,7 +79,7 @@ classdef schfigure < handle & matlab.mixin.SetGet
 
 			% set dimensions yo
 
-			pos=obj.fig.Positon;
+			pos=obj.fig.Position;
 			obj.fig.Position=[pos(1:2) pos(1:2)+obj.dims(:)'];
 
 		end
@@ -96,13 +100,14 @@ classdef schfigure < handle & matlab.mixin.SetGet
 				fid=fopen('~/.schfigrectory','wt');
 				fprintf(fid,'%s',val);
 				fclose(fid);
+				obj.working_dir=val;
 			end
-
 		end
 
 	end
 
 	methods(Static)
-
+		sparsify_axis(ax,precision)
+		outify_axis(ax,tick_length)
 	end
 end

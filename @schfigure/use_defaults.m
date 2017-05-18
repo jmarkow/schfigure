@@ -10,7 +10,7 @@ struct=read_options(def_options);
 categories=fieldnames(struct);
 
 for i=1:length(categories)
-	if isprop(OBJ(i),categories{i})
+	if isprop(OBJ,categories{i})
 		OBJ.(categories{i})=struct.(categories{i});
 	end
 end

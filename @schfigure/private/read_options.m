@@ -30,16 +30,13 @@ for i=1:length(readdata{1})
 
   % convert nums and vectors
 
-  tmp=regexpi(OPTIONS.(readdata{1}{i}),'^[0-9;.:e-]+$|([e|E]ps)|(true)|(false)','match');
+  tmp=regexpi(OPTIONS.(readdata{1}{i}),'^[0-9;.:e-]+$||(true)|(false)','match');
   tmp2=regexpi(OPTIONS.(readdata{1}{i}),'^\[([0-9;.:e-]+|([0-9;.:e-]+ )+[0-9;.:e-]+)\]|([i|I]nf)|(\[\])$','match');
   tmp3=regexpi(OPTIONS.(readdata{1}{i}),'^\@','match');
 
   if ~isempty(tmp3)
     OPTIONS.(readdata{1}{i})=eval(OPTIONS.(readdata{1}{i}));
-    continue;
-  end
-
-  if (~isempty(tmp) | ~isempty(tmp2))
+  elseif (~isempty(tmp) | ~isempty(tmp2))
     OPTIONS.(readdata{1}{i})=str2num(OPTIONS.(readdata{1}{i}));
   end
 

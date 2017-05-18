@@ -107,7 +107,7 @@ blockMap = containers.Map(); % key=blockPrefix -> MAP with connection informatio
 
 % current block (cb) data:
 cbNewBlock = false;
-cbPrefix = [];
+cbPrefix = '';
 cbContentLines = -ones(1,100);
 cbContentLinesFull = -ones(1,100);
 cbContentLinesIdx = 1;
@@ -162,7 +162,7 @@ while lineIdx < lineCount
         end
         operation = 0;
         previousBlockPrefix = cbPrefix;
-        cbPrefix = [];
+        cbPrefix = '';
     end
 
 
@@ -362,11 +362,6 @@ function setBlockData(blockMap,blockId,contentLines,conn)
 end
 
 function [newBlock,conn] = getBlockData(blockMap,blockId)
-
-    if isempty(blockId)
-        blockId='';
-    end
-
     if blockMap.isKey(blockId)
         newBlock = false;
         theblock = blockMap(blockId);
@@ -378,7 +373,7 @@ function [newBlock,conn] = getBlockData(blockMap,blockId)
         s = struct();
         s.contentLines = [];
         s.conn = conn;
-     
+        
         blockMap(blockId) = s; %#ok<NASGU>
     end
 end
@@ -392,10 +387,6 @@ function writeBlocks(blockList, blockMap, fileId, fileContent)
     for ii = 1:length(blockList)
         blockId = blockList(ii).prefix;
         fprintf(fileId, 'GS\n%s', blockId);
-        
-        if isempty(blockId)
-        blockId='';
-    end
         
         theblock = blockMap(blockId);
         contentLines = theblock.contentLines;
