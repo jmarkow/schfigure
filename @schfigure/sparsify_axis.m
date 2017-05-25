@@ -13,26 +13,28 @@ if nargin<2 | isempty(PRECISION)
 end
 
 if nargin<1 | isempty(AX)
-	AX=gca;
+	AX=findall(gcf,'type','axes');
 end
 
 % round off axes, jibber jabber blah blah
 
-box off;
-axis(AX,'manual');
+for i=1:length(AX)
+	box(AX(i),'off');
+	axis(AX(i),'manual');
 
-if contains(lower(XY),'y')
-	ycorners=AX.YLim*1/PRECISION;
-	new_ycorners=[floor(ycorners(1)) floor(ycorners(2))]*PRECISION;
+	if contains(lower(XY),'y')
+		ycorners=AX(i).YLim*1/PRECISION;
+		new_ycorners=[floor(ycorners(1)) floor(ycorners(2))]*PRECISION;
 
-	AX.YLim=new_ycorners;
-	AX.YTick=new_ycorners;
-end
+		AX(i).YLim=new_ycorners;
+		AX(i).YTick=new_ycorners;
+	end
 
-if contains(lower(XY),'x')
-	xcorners=AX.XLim*1/PRECISION;
-	new_xcorners=[floor(xcorners(1)) floor(xcorners(2))]*PRECISION;
+	if contains(lower(XY),'x')
+		xcorners=AX(i).XLim*1/PRECISION;
+		new_xcorners=[floor(xcorners(1)) floor(xcorners(2))]*PRECISION;
 
-	AX.XLim=new_xcorners;
-	AX.XTick=new_xcorners;
+		AX(i).XLim=new_xcorners;
+		AX(i).XTick=new_xcorners;
+	end
 end

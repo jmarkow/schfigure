@@ -8,8 +8,10 @@ if nargin<2
 end
 
 if nargin<1 | isempty(AX)
-	AX=gca;
+	AX=findall(gcf,'type','axes');
 end
 
-AX.TickDir='out';
-AX.TickLength=TICK_LENGTH;
+for i=1:length(AX)
+	AX(i).TickDir='out';
+	AX(i).TickLength=TICK_LENGTH;
+end

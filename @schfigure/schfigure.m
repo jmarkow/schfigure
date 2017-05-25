@@ -21,7 +21,11 @@ classdef schfigure < handle & matlab.mixin.SetGet
 
 	methods
 
-		function obj=schfigure(FIG)
+		function obj=schfigure(FIG,BLACKBG)
+
+			if nargin<2
+				BLACKBG=false;
+			end
 
 			if nargin<1
 				FIG=[];
@@ -57,7 +61,14 @@ classdef schfigure < handle & matlab.mixin.SetGet
 
 			obj.fig.UserData=obj;
 			obj.fig.Visible='on';
-			obj.fig.Color=[1 1 1];
+
+			if BLACKBG
+				whitebg(obj.fig,[0 0 0]);
+				obj.fig.Color=[0 0 0];
+				obj.fig.InvertHardcopy='off';
+			else
+				obj.fig.Color=[1 1 1];
+			end
 
 		end
 
@@ -130,5 +141,7 @@ classdef schfigure < handle & matlab.mixin.SetGet
 	methods(Static)
 		sparsify_axis(ax,precision,xy)
 		outify_axis(ax,tick_length)
+		unify_caxis(ax,precision)
+		h=shaded_errorbar(x,y,facecolor,edgecolor,method)
 	end
 end
