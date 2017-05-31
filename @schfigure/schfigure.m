@@ -70,6 +70,7 @@ classdef schfigure < handle & matlab.mixin.SetGet
 				obj.fig.Color=[1 1 1];
 			end
 
+
 		end
 
 		function obj = set.name(obj,val)
