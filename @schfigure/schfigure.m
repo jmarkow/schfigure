@@ -108,7 +108,7 @@ classdef schfigure < handle & matlab.mixin.SetGet
 
 			pos=obj.fig.Position;
 			obj.fig.Position=[pos(1:2) obj.dims(:)'];
-
+			obj.fig.PaperSize=[obj.dims(:)'];
 		end
 
 		function obj = set.renderer(obj,val)
@@ -133,15 +133,17 @@ classdef schfigure < handle & matlab.mixin.SetGet
 
 		function obj = set.units(obj,val)
 			obj.fig.Units=val;
+			obj.fig.PaperUnits=val;
 			obj.units=val;
 		end
 
 	end
 
 	methods(Static)
-		sparsify_axis(ax,precision,xy)
+		sparsify_axis(ax,precision,xy,xtick,ytick)
 		outify_axis(ax,tick_length)
 		unify_caxis(ax,precision)
 		h=shaded_errorbar(x,y,facecolor,edgecolor,method)
+		[box_handle,med_handle,whisk_handle]=boxplot(data,grps,varargin)
 	end
 end
