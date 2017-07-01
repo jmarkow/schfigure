@@ -146,5 +146,6 @@ classdef schfigure < handle & matlab.mixin.SetGet
 		unify_caxis(ax,precision)
 		h=shaded_errorbar(x,y,facecolor,edgecolor,method)
 		[box_handle,med_handle,whisk_handle]=boxplot(data,grps,varargin)
+		h=group_violin(data,varargin)
 	end
 end

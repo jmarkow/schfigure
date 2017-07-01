@@ -33,6 +33,9 @@ for i=1:length(AX)
 	if contains(lower(XY),'y')
 		ycorners=AX(i).YLim*1/PRECISION;
 		new_ycorners=[floor(ycorners(1)) floor(ycorners(2))]*PRECISION;
+        if new_ycorners(2)<=new_ycorners(1)
+            new_ycorners(2)=new_ycorners(1)+PRECISION;
+        end
 		AX(i).YLim=new_ycorners;
         if isempty(YTICK)
             AX(i).YTick=new_ycorners;
