@@ -47,7 +47,11 @@ for i=1:length(AX)
 	if contains(lower(XY),'x')
 		xcorners=AX(i).XLim*1/PRECISION;
 		new_xcorners=[floor(xcorners(1)) floor(xcorners(2))]*PRECISION;
-		AX(i).XLim=new_xcorners;
+        if new_xcorners(2)<=new_xcorners(1)
+            new_xcorners(2)=new_xcorners(1)+PRECISION;
+        end
+        AX(i).XLim=new_xcorners;
+
         if isempty(XTICK)
             AX(i).XTick=new_xcorners;
         else
