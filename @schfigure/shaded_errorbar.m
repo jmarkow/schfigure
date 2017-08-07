@@ -20,6 +20,10 @@ if nargin<3 | isempty(FACECOLOR)
 	FACECOLOR=[.4 .4 .4];
 end
 
+if nargin<1 | isempty(X)
+	X=1:numel(Y);
+end
+
 xdata=X(:)';
 
 xdata=[xdata fliplr(xdata)];
