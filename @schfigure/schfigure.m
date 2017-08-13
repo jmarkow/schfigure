@@ -147,7 +147,7 @@ classdef schfigure < handle & matlab.mixin.SetGet
 		h=shaded_errorbar(x,y,facecolor,edgecolor,method)
 		[box_handle,med_handle,whisk_handle]=boxplot(data,grps,varargin)
 		[h,xdata,ydata]=stair_histogram(x,bins,varargin)
-		h=scatter_density(x,y,x_density,y_density)
+		h=scatter_density(x,y,density,smoothing)
 		h=group_violin(data,varargin)
 	end
 end

@@ -53,6 +53,10 @@ for i=1:length(OBJ)
 			print(OBJ(i).fig,'-dpng',renderer,res,sprintf('%s.png',filename));
 		end
 
+		if contains(OBJ(i).formats,'svg') || contains(OBJ(i).formats,'all')
+			print(OBJ(i).fig,'-dsvg',renderer,res,sprintf('%s.svg',filename));
+		end
+
 		if contains(OBJ(i).formats,'fig') || contains(OBJ(i).formats,'all')
 			saveas(OBJ(i).fig,sprintf('%s.fig',filename));
 		end
