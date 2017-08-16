@@ -18,7 +18,11 @@ for i=1:length(OBJ)
 			epsclean(sprintf('%s.eps',filename),sprintf('%s.eps',filename),false,true);
 			if contains(OBJ(i).formats,'pdf') || contains(OBJ(i).formats,'all')
 				[status,output]=system(sprintf('ps2pdf -dEPSCrop "%s.eps" "%s.pdf"',filename,filename));
-				pdf_gen=true;
+				if status==0
+					pdf_gen=true;
+				else
+					disp([output]);
+				end
 			end
 		end
 
