@@ -19,11 +19,14 @@ Y=Y(:);
 x_bins=linspace(min(X),max(X),DENSITY(1));
 y_bins=linspace(min(Y),max(Y),DENSITY(2));
 
+
 hist_mat=zeros(numel(y_bins),numel(x_bins));
 bin_idx=zeros(numel(X),2);
 
 [~,bin_idx(:,1)]=histc(Y,y_bins);
 [~,bin_idx(:,2)]=histc(X,x_bins);
+
+bin_idx(any(isnan(bin_idx')),:)=[];
 
 hist_mat=accumarray(bin_idx,1,size(hist_mat));
 
