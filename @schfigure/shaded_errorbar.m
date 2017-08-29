@@ -26,6 +26,13 @@ end
 
 xdata=X(:)';
 
+% take care of nans
+
+todel=any(isnan(Y)|isnan(Y));
+
+xdata(todel)=[];
+Y(:,todel)=[];
+
 xdata=[xdata fliplr(xdata)];
 ydata=[Y(1,:) fliplr(Y(2,:))];
 
