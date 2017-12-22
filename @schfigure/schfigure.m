@@ -9,6 +9,7 @@ classdef schfigure < handle & matlab.mixin.SetGet
 		units
 		working_dir
 		resolution
+		schfigdir
 	end
 
 	properties (SetAccess=private)
@@ -41,7 +42,16 @@ classdef schfigure < handle & matlab.mixin.SetGet
 			obj.fig=FIG;
 			obj.use_defaults;
 
-			if exist('~/.schfigrectory','file')
+			% only setting schfigdir here, and not while loading schfigname
+			if exist(fullfile(pwd(), '.schfigrectory'), 'file')
+				obj.schfigdir = pwd();
+				fid=fopen(fullfile(pwd(), '.schfigrectory'));
+				tmp=fscanf(fid,'%c');
+				fclose(fid);
+				obj.working_dir=tmp;
+				fprintf('Loading schfigurectory: %s\n',obj.working_dir)
+			elseif exist('~/.schfigrectory','file')
+				obj.schfigdir = '~';
 				fid=fopen('~/.schfigrectory');
 				tmp=fscanf(fid,'%c');
 				fclose(fid);
@@ -49,7 +59,13 @@ classdef schfigure < handle & matlab.mixin.SetGet
 				fprintf('Loading schfigurectory: %s\n',obj.working_dir)
 			end
 
-			if exist('~/.schfigname','file')
+			if exist(fullfile(pwd(), '.schfigname'), 'file')
+				fid=fopen(fullfile(pwd(), '.schfigname'));
+				tmp=fscanf(fid,'%s');
+				fclose(fid);
+				obj.name=tmp;
+				fprintf('Loading schfigname: %s\n',obj.name)
+			elseif exist('~/.schfigname','file')
 				fid=fopen('~/.schfigname');
 				tmp=fscanf(fid,'%s');
 				fclose(fid);
@@ -81,7 +97,7 @@ classdef schfigure < handle & matlab.mixin.SetGet
 				obj.name=num2str(val);
 			end
 
-			fid=fopen('~/.schfigname','wt');
+			fid=fopen(fullfile(obj.schfigdir, '.schfigname'), 'wt');
 			fprintf(fid,'%s',val);
 			fclose(fid);
 
@@ -125,7 +141,7 @@ classdef schfigure < handle & matlab.mixin.SetGet
 			% schfigurate it
 
 			if exist(val,'dir')
-				fid=fopen('~/.schfigrectory','wt');
+				fid=fopen(fullfile(obj.schfigdir, '.schfigrectory'),'wt');
 				fprintf(fid,'%s',val);
 				fclose(fid);
 				obj.working_dir=val;
