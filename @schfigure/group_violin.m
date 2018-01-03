@@ -21,11 +21,18 @@ if mod(nparams,2)>0
 	error('Parameters must be specified as parameter/value pairs!');
 end
 
+use_params=[];
+
 for i=1:2:nparams
   if any(strcmp(varargin{i},opts_names))
     opts.(varargin{i})=varargin{i+1};
+    use_params=[use_params i i+1];
   end
+  
 end
+
+varargin(use_params)=[];
+
 
 if isstruct(DATA)
 
@@ -100,7 +107,7 @@ for i=1:length(DATA)
 	end
 
 	xpos(i)=cur_pos;
-	H(i)=Violin(DATA{i},cur_pos,'ViolinColor',colors(opts.conditions(i),:));
+	H(i)=Violin(DATA{i},cur_pos,'ViolinColor',colors(opts.conditions(i),:),varargin{:});
 
 end
 
