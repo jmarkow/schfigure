@@ -4,7 +4,8 @@ function [H,XDATA,YDATA]=stair_histogram(X,BINS,varargin)
 %
 
 opts=struct(...
-	'normalize',false);
+	'normalize',false,...
+    'fill',false);
 
 
 nparams=length(varargin);
@@ -34,4 +35,8 @@ YDATA=YDATA(:);
 XDATA=[BINS(1:end-1);BINS(2:end)];
 XDATA=XDATA(:);
 
-H=plot(XDATA,YDATA,varargin{:});
+if ~opts.fill
+    H=plot(XDATA,YDATA,varargin{:});
+else
+    H=area(XDATA,YDATA,varargin{:});
+end
