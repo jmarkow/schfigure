@@ -5,7 +5,9 @@ function [H,XDATA,YDATA]=stair_histogram(X,BINS,varargin)
 
 opts=struct(...
 	'normalize',false,...
-    'fill',false);
+    'normalize_denom',[],...
+    'fill',false,...
+    'cdf',false);
 
 
 nparams=length(varargin);
@@ -25,7 +27,15 @@ varargin(use_params)=[];
 YDATA=histcounts(X,BINS);
 
 if opts.normalize
-	YDATA=YDATA/sum(YDATA);
+    if isempty(opts.normalize_denom)
+        YDATA=YDATA/sum(YDATA);
+    else
+        YDATA=YDATA/opts.normalize_denom;
+    end
+end
+
+if opts.cdf
+  YDATA=cumsum([YDATA])./sum(YDATA);  
 end
 
 YDATA=repmat(YDATA(:)',[2 1]);
