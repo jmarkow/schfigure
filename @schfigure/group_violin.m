@@ -16,6 +16,7 @@ opts=struct(...
 
 opts_names=fieldnames(opts);
 nparams=length(varargin);
+labels = opts.labels;
 
 if mod(nparams,2)>0
 	error('Parameters must be specified as parameter/value pairs!');
