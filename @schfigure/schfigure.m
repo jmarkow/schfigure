@@ -165,5 +165,6 @@ classdef schfigure < handle & matlab.mixin.SetGet
 		[h,xdata,ydata]=stair_histogram(x,bins,varargin)
 		h=scatter_density(x,y,density,smoothing)
 		h=group_violin(data,varargin)
+    h=plot_trace_with_ci(x,data,boots,varargin)
 	end
 end
