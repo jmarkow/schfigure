@@ -19,6 +19,7 @@ for i=1:length(OBJ)
 			if contains(OBJ(i).formats,'pdf') || contains(OBJ(i).formats,'all')
 				[status,output]=system(sprintf('ps2pdf -dEPSCrop "%s.eps" "%s.pdf"',filename,filename));
 				if status~=0
+                    fprintf('%s',output)
 					error('Error generating pdf with ps2pdf')
 				else
 					pdf_gen=true;
@@ -67,10 +68,11 @@ for i=1:length(OBJ)
 
 		if contains(OBJ(i).formats,'fig') || contains(OBJ(i).formats,'all')
 			saveas(OBJ(i).fig,sprintf('%s.fig',filename));
-		end
+        end
 
 
-	catch
+    catch err
+        rethrow(err)
 
 		disp('Save did not work (running in terminal emulation?)...')
 

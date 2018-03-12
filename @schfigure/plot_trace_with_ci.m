@@ -33,7 +33,8 @@ end
 
 se=opts.sigma_t.*nanstd(BOOTS);
 mu=opts.plot_fun(DATA);
+ci=[mu-se;mu+se];
 
-AX(1)=schfigure.shaded_errorbar(X,ci,opts.face_color,opts.edge_color):
+AX(1)=schfigure.shaded_errorbar(X,ci,opts.face_color,opts.edge_color);
 hold on;
 AX(2)=plot(X,mu,opts.line_style,'color',opts.line_color);
