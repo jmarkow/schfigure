@@ -31,31 +31,31 @@ for i=1:length(AX)
 	axis(AX(i),'manual');
 
 	if contains(lower(XY),'y')
-		ycorners=AX(i).YLim*1/PRECISION;
+		ycorners=get(AX(i),'YLim')*1/PRECISION;
 		new_ycorners=[floor(ycorners(1)) floor(ycorners(2))]*PRECISION;
         if new_ycorners(2)<=new_ycorners(1)
             new_ycorners(2)=new_ycorners(1)+PRECISION;
         end
-		AX(i).YLim=new_ycorners;
+		set(AX(i),'YLim',new_ycorners);
         if isempty(YTICK)
-            AX(i).YTick=new_ycorners;
+            set(AX(i),'YTick',new_ycorners);
         else
-            AX(i).YTick=YTICK;
+            set(AX(i),'YTick',YTICK);
         end
 	end
 
 	if contains(lower(XY),'x')
-		xcorners=AX(i).XLim*1/PRECISION;
+		xcorners=get(AX(i),'XLim')*1/PRECISION;
 		new_xcorners=[floor(xcorners(1)) floor(xcorners(2))]*PRECISION;
         if new_xcorners(2)<=new_xcorners(1)
             new_xcorners(2)=new_xcorners(1)+PRECISION;
         end
-        AX(i).XLim=new_xcorners;
+        set(AX(i),'XLim',new_xcorners);
 
         if isempty(XTICK)
-            AX(i).XTick=new_xcorners;
+            set(AX(i),'XTick',new_xcorners);
         else
-            AX(i).XTick=XTICK;
+            set(AX(i),'XTick',XTICK);
         end
 	end
 end
